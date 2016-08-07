@@ -1,0 +1,19 @@
+{
+    "name": "stratedge/regulator",
+    "description": "API Output Filter/Regulation for Laravel 5.*",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jarret Byrne",
+            "email": "jarret@solvomedia.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Stratedge\\Regulator\\": "src/"
+        }
+    }
+}
