@@ -5,7 +5,7 @@ namespace Stratedge\Regulator\Filters;
 use Stratedge\Regulator\Filters\Filter;
 use Stratedge\Regulator\Mutation;
 
-class String extends Filter
+class Text extends Filter
 {
     /**
      * @var string
