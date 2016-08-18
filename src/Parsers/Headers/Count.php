@@ -2,15 +2,15 @@
 
 namespace Stratedge\Regulator\Parsers\Headers;
 
-use Stratedge\Regulator\Mutation;
+use Stratedge\Regulator\Regulation;
 use Stratedge\Regulator\Parsers\Parser;
 
 class Count extends Parser
 {
-    public function parse(Mutation $mutation)
+    public function parse(Regulation $regulation)
     {
-        $mutation->addHeaders("X-Count", $mutation->node()->count());
+        $regulation->addHeaders("X-Count", $regulation->source()->count());
 
-        return $mutation;
+        return $regulation;
     }
 }

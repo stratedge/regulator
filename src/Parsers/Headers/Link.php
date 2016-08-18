@@ -2,32 +2,32 @@
 
 namespace Stratedge\Regulator\Parsers\Headers;
 
-use Stratedge\Regulator\Mutation;
+use Stratedge\Regulator\Regulation;
 use Stratedge\Regulator\Parsers\Parser;
 
 class Link extends Parser
 {
-    public function parse(Mutation $mutation)
+    public function parse(Regulation $regulation)
     {
         $links = [];
 
-        if ($mutation->node()->count()) {
-            if ($mutation->node()->currentPage() !== $mutation->node()->lastPage()) {
-                $links[] = '<' . $mutation->node()->nextPageUrl() . '>; rel="next"';
-                $links[] = '<'. $mutation->node()->url($mutation->node()->lastPage()) . '>; rel="last"';
+        if ($regulation->source()->count()) {
+            if ($regulation->source()->currentPage() !== $regulation->source()->lastPage()) {
+                $links[] = '<' . $regulation->source()->nextPageUrl() . '>; rel="next"';
+                $links[] = '<'. $regulation->source()->url($regulation->source()->lastPage()) . '>; rel="last"';
             }
 
-            if ($mutation->node()->currentPage() !== 1) {
-                $links[] = '<' . $mutation->node()->url(1) . '>; rel="first"';
-                $links[] = '<' . $mutation->node()->previousPageUrl() . '>; rel="prev"';
+            if ($regulation->source()->currentPage() !== 1) {
+                $links[] = '<' . $regulation->source()->url(1) . '>; rel="first"';
+                $links[] = '<' . $regulation->source()->previousPageUrl() . '>; rel="prev"';
             }
         }
 
         if (!empty($links)) {
             $link = implode(", ", $links);
-            $mutation->addHeaders("Link", $link);
+            $regulation->addHeaders("Link", $link);
         }
 
-        return $mutation;
+        return $regulation;
     }
 }

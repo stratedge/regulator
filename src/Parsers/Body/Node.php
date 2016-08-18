@@ -2,15 +2,15 @@
 
 namespace Stratedge\Regulator\Parsers\Body;
 
-use Stratedge\Regulator\Mutation;
+use Stratedge\Regulator\Regulation;
 use Stratedge\Regulator\Parsers\Parser;
 
 class Node extends Parser
 {
-    public function parse(Mutation $mutation)
+    public function parse(Regulation $regulation)
     {
-        $mutation->body($mutation->node());
+        $regulation->body($regulation->source());
 
-        return $mutation;
+        return $regulation;
     }
 }

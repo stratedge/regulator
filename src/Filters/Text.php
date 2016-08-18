@@ -3,7 +3,7 @@
 namespace Stratedge\Regulator\Filters;
 
 use Stratedge\Regulator\Filters\Filter;
-use Stratedge\Regulator\Mutation;
+use Stratedge\Regulator\Regulation;
 
 class Text extends Filter
 {
@@ -18,19 +18,19 @@ class Text extends Filter
     protected $comparator = "=";
 
 
-    public function filter(Mutation $mutation)
+    public function filter(Regulation $regulation)
     {
-        if ($mutation->request()->has($this->field())) {
-            $mutation->node(
-                $mutation->node()->where(
+        if ($regulation->request()->has($this->field())) {
+            $regulation->source(
+                $regulation->source()->where(
                     $this->field(),
                     $this->comparator(),
-                    $mutation->request()->{$this->field}
+                    $regulation->request()->{$this->field}
                 )
             );
         }
 
-        return $mutation;
+        return $regulation;
     }
 
     public function field($field = null)

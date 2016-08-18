@@ -4,7 +4,7 @@ namespace Stratedge\Regulator;
 
 use Illuminate\Http\Request;
 
-class Mutation
+class Regulation
 {
     /**
      * @var Request
@@ -14,7 +14,7 @@ class Mutation
     /**
      * @var mixed
      */
-    protected $node;
+    protected $source;
 
     /**
      * @var array
@@ -37,10 +37,10 @@ class Mutation
     protected $body;
 
 
-    public function __construct(Request $request, $node, $filters = [], $status = 200)
+    public function __construct(Request $request, $source, $filters = [], $status = 200)
     {
         $this->request($request);
-        $this->node($node);
+        $this->source($source);
         $this->filters($filters);
         $this->status($status);
     }
@@ -69,25 +69,25 @@ class Mutation
     }
 
 
-    public function node($node = null)
+    public function source($source = null)
     {
-        if (is_null($node)) {
-            return $this->getNode();
+        if (is_null($source)) {
+            return $this->getSource();
         } else {
-            return $this->setNode($node);
+            return $this->setSource($source);
         }
     }
 
 
-    public function getNode()
+    public function getSource()
     {
-        return $this->node;
+        return $this->source;
     }
 
 
-    public function setNode($node)
+    public function setSource($source)
     {
-        $this->node = $node;
+        $this->source = $source;
         return $this;
     }
 

@@ -2,15 +2,15 @@
 
 namespace Stratedge\Regulator\Parsers\Body;
 
-use Stratedge\Regulator\Mutation;
+use Stratedge\Regulator\Regulation;
 use Stratedge\Regulator\Parsers\Parser;
 
 class Paginated extends Parser
 {
-    public function parse(Mutation $mutation)
+    public function parse(Regulation $regulation)
     {
-        $mutation->body($mutation->node()->items());
+        $regulation->body($regulation->source()->items());
 
-        return $mutation;
+        return $regulation;
     }
 }

@@ -3,33 +3,33 @@
 namespace Stratedge\Regulator\Parsers\LimitFields;
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Stratedge\Regulator\Mutation;
+use Stratedge\Regulator\Regulation;
 use Stratedge\Regulator\Parsers\Parser;
 
 class Collection extends Parser
 {
-    public function parse(Mutation $mutation)
+    public function parse(Regulation $regulation)
     {
         $fields = [];
 
-        if ($mutation->request()->has("fields")) {
-            $fields = explode(",", $mutation->request()->fields);
+        if ($regulation->request()->has("fields")) {
+            $fields = explode(",", $regulation->request()->fields);
         }
 
-        if ($mutation->request()->has("with")) {
+        if ($regulation->request()->has("with")) {
             $fields = array_merge(
                 $fields,
-                explode(",", $mutation->request()->with)
+                explode(",", $regulation->request()->with)
             );
         }
 
         sort($fields);
 
-        foreach ($mutation->node()->items() as &$obj) {
+        foreach ($regulation->source()->items() as &$obj) {
             $this->addVisible($obj, $fields);
         }
 
-        return $mutation;
+        return $regulation;
     }
 
 
@@ -70,7 +70,7 @@ class Collection extends Parser
                         $this->addVisible($child, $fields);
                     }
                 } else {
-                    //Relationship is a node - update the node
+                    //Relationship is a source - update the source
                     $this->addVisible($obj->{$relation}, $fields);
                 }
             }

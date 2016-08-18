@@ -1,20 +1,20 @@
 <?php
 
-namespace Stratedge\Regulator\Mutators;
+namespace Stratedge\Regulator\Regulators;
 
-use Stratedge\Regulator\Mutation;
-use Stratedge\Regulator\Mutators\Mutator;
+use Stratedge\Regulator\Regulation;
+use Stratedge\Regulator\Regulators\Regulator;
 
-class Collection extends Mutator
+class Collection extends Regulator
 {
-    public function mutate()
+    public function regulate()
     {
-        $mutation = $this->makeMutation();
+        $regulation = $this->makeRegulation();
 
-        $mutation = $this->filter($mutation);
-        $mutation = $this->parse($mutation);
+        $regulation = $this->filter($regulation);
+        $regulation = $this->parse($regulation);
 
-        return $mutation;
+        return $regulation;
     }
 
 

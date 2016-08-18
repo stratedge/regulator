@@ -3,32 +3,32 @@
 namespace Stratedge\Regulator\Parsers\LimitFields;
 
 use Illuminate\Database\Eloquent\Collection;
-use Stratedge\Regulator\Mutation;
+use Stratedge\Regulator\Regulation;
 use Stratedge\Regulator\Parsers\Parser;
 
 class Node extends Parser
 {
-    public function parse(Mutation $mutation)
+    public function parse(Regulation $regulation)
     {
         $fields = [];
 
-        if ($mutation->request()->has("fields")) {
-            $fields = explode(",", $mutation->request()->fields);
+        if ($regulation->request()->has("fields")) {
+            $fields = explode(",", $regulation->request()->fields);
         }
 
-        if ($mutation->request()->has("with")) {
+        if ($regulation->request()->has("with")) {
             $fields = array_merge(
                 $fields,
-                explode(",", $mutation->request()->with)
+                explode(",", $regulation->request()->with)
             );
         }
 
         sort($fields);
 
-        $node = $mutation->node();
-        $this->addVisible($node, $fields);
+        $source = $regulation->source();
+        $this->addVisible($source, $fields);
 
-        return $mutation;
+        return $regulation;
     }
 
 
@@ -69,7 +69,7 @@ class Node extends Parser
                         $this->addVisible($child, $fields);
                     }
                 } else {
-                    //Relations is a node - update the node
+                    //Relations is a source - update the source
                     $this->addVisible($obj->{$relation}, $fields);
                 }
             }

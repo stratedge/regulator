@@ -1,14 +1,14 @@
 <?php
 
-namespace Stratedge\Regulator\Mutators;
+namespace Stratedge\Regulator\Regulators;
 
 use Illuminate\Http\Request;
 use InvalidArgumentException;
-use Stratedge\Regulator\Mutation;
+use Stratedge\Regulator\Regulation;
 use Stratedge\Regulator\Parsers\Parser;
 use Stratedge\Regulator\Filters\Filter;
 
-abstract class Mutator
+abstract class Regulator
 {
     /**
      * @var Request
@@ -23,7 +23,7 @@ abstract class Mutator
     /**
      * @var mixed
      */
-    protected $node;
+    protected $source;
 
     /**
      * @var array
@@ -44,7 +44,7 @@ abstract class Mutator
     }
 
 
-    abstract public function mutate();
+    abstract public function regulate();
 
 
     public function registerParsers()
@@ -138,25 +138,25 @@ abstract class Mutator
     }
 
 
-    public function node($node = null)
+    public function source($source = null)
     {
-        if (is_null($node)) {
-            return $this->getNode();
+        if (is_null($source)) {
+            return $this->getSource();
         } else {
-            return $this->setNode($node);
+            return $this->setSource($source);
         }
     }
 
 
-    public function getNode()
+    public function getSource()
     {
-        return $this->node;
+        return $this->source;
     }
 
 
-    public function setNode($node)
+    public function setSource($source)
     {
-        $this->node = $node;
+        $this->source = $source;
         return $this;
     }
 
@@ -236,31 +236,31 @@ abstract class Mutator
     }
 
 
-    public function filter(Mutation $mutation)
+    public function filter(Regulation $regulation)
     {
         foreach ($this->filters as $filter) {
-            $mutation = $filter->filter($mutation);
+            $regulation = $filter->filter($regulation);
         }
 
-        return $mutation;
+        return $regulation;
     }
 
 
-    public function parse(Mutation $mutation)
+    public function parse(Regulation $regulation)
     {
         foreach ($this->parsers as $parser) {
-            $mutation = $parser->parse($mutation);
+            $regulation = $parser->parse($regulation);
         }
 
-        return $mutation;
+        return $regulation;
     }
 
 
-    public function makeMutation()
+    public function makeRegulation()
     {
-        return app(Mutation::class, [
+        return app(Regulation::class, [
             $this->request(),
-            $this->node(),
+            $this->source(),
             $this->filters(),
             $this->status()
         ]);

@@ -2,23 +2,23 @@
 
 namespace Stratedge\Regulator\Parsers;
 
-use Stratedge\Regulator\Mutation;
+use Stratedge\Regulator\Regulation;
 use Stratedge\Regulator\Parsers\Parser;
 
 class Paginate extends Parser
 {
-    public function parse(Mutation $mutation)
+    public function parse(Regulation $regulation)
     {
         $per_page = 25;
 
-        if ($mutation->request()->has("per_page")) {
-            if (is_numeric($mutation->request()->per_page)) {
-                $per_page = $mutation->request()->per_page;
+        if ($regulation->request()->has("per_page")) {
+            if (is_numeric($regulation->request()->per_page)) {
+                $per_page = $regulation->request()->per_page;
             }
         }
 
-        $mutation->node($mutation->node()->paginate($per_page));
+        $regulation->source($regulation->source()->paginate($per_page));
 
-        return $mutation;
+        return $regulation;
     }
 }

@@ -2,19 +2,19 @@
 
 namespace Stratedge\Regulator\Parsers\With;
 
-use Stratedge\Regulator\Mutation;
+use Stratedge\Regulator\Regulation;
 use Stratedge\Regulator\Parsers\Parser;
 
 class Eager extends Parser
 {
-    public function parse(Mutation $mutation)
+    public function parse(Regulation $regulation)
     {
-        if ($mutation->request()->has('with')) {
-            $withs = explode(",", $mutation->request()->with);
+        if ($regulation->request()->has('with')) {
+            $withs = explode(",", $regulation->request()->with);
 
-            $mutation->node($mutation->node()->with($withs));
+            $regulation->source($regulation->source()->with($withs));
         }
 
-        return $mutation;
+        return $regulation;
     }
 }
