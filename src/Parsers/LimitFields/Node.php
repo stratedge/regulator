@@ -34,7 +34,11 @@ class Node extends Parser
 
     protected function addVisible(&$obj, $fields)
     {
-        $final = [];
+        $final = [
+            "fields" => [],
+            "relations" => []
+        ];
+
         $all = false;
         $relations = [];
 
@@ -47,7 +51,11 @@ class Node extends Parser
             //Check if this property is for this model, if so save it and
             //continue
             if (strpos($field, ".") === false) {
-                $final[] = $field;
+                if (method_exists($obj, $field)) {
+                    $final["relations"][] = $field;
+                } else {
+                    $final["fields"][] = $field;
+                }
                 continue;
             }
 
@@ -58,6 +66,8 @@ class Node extends Parser
             $field = implode(".", $field);
 
             $relations[$relation][] = $field;
+
+            $final["relations"][] = $relation;
         }
 
         //Loop through any given relationships and set their visible properties
@@ -75,8 +85,11 @@ class Node extends Parser
             }
         }
 
-        if (!$all) {
-            $obj->setVisible($final);
+        if (!$all && !empty($final["fields"])) {
+            $obj->setVisible(array_merge(
+                $final["relations"],
+                $final["fields"]
+            ));
         } else {
             $obj->setVisible([]);
         }
