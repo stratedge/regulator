@@ -48,14 +48,4 @@ class RequestTest extends TestCase
 
         $this->assertAttributeSame($request, "request", $regulator);
     }
-
-
-    public function testPassInvalidValueThrowsException()
-    {
-        $this->setExpectedException(ErrorException::class);
-
-        $regulator = $this->getRegulator();
-
-        $regulator->request("test");
-    }
 }
