@@ -53,12 +53,12 @@ abstract class Regulator
     }
 
 
-    public function request($request = null)
+    public function request(Request $request = null)
     {
         if (is_null($request)) {
             return $this->getRequest();
         } else {
-            return $this->setRequest();
+            return $this->setRequest($request);
         }
     }
 
@@ -69,10 +69,10 @@ abstract class Regulator
     }
 
 
-    public function setRequest($request)
+    public function setRequest(Request $request)
     {
         $this->request = $request;
-        return $this->request;
+        return $this;
     }
 
 
