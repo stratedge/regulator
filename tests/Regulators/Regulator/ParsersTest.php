@@ -2,7 +2,6 @@
 
 namespace Tests\Regulators\Regulator;
 
-use Stratedge\Regulator\Parsers\Parser;
 use Tests\Regulators\Regulator\TestCase;
 
 class ParsersTest extends TestCase
@@ -164,11 +163,5 @@ class ParsersTest extends TestCase
         $parser2 = $this->getParser();
 
         $this->assertSame($regulator, $regulator->parsers($parser1, $parser2));
-    }
-
-
-    public function getParser()
-    {
-        return $this->getMockForAbstractClass(Parser::class);
     }
 }

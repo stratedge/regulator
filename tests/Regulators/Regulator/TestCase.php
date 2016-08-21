@@ -3,12 +3,13 @@
 namespace Tests\Regulators\Regulator;
 
 use Illuminate\Http\Request;
+use Stratedge\Regulator\Parsers\Parser;
 use Stratedge\Regulator\Regulators\Regulator;
 use Tests\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
-    public function getRegulator(Request $request = null)
+    protected function getRegulator(Request $request = null)
     {
         if (is_null($request)) {
             $request = $this->getRequest();
@@ -18,7 +19,7 @@ class TestCase extends BaseTestCase
     }
 
 
-    public function getRequest($return_builder = false)
+    protected function getRequest($return_builder = false)
     {
         $request = $this->getMockBuilder(Request::class);
 
@@ -27,5 +28,10 @@ class TestCase extends BaseTestCase
         }
 
         return $request->getMock();
+    }
+
+    protected function getParser()
+    {
+        return $this->getMockForAbstractClass(Parser::class);
     }
 }
