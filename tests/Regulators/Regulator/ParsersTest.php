@@ -6,6 +6,10 @@ use Tests\Regulators\Regulator\TestCase;
 
 class ParsersTest extends TestCase
 {
+    //**************************************************************************
+    // PASSING NOTHING/NULL
+    //**************************************************************************
+
     public function testPassingNothingReturnsParsersProperty()
     {
         $regulator = $this->getRegulator();
@@ -34,7 +38,11 @@ class ParsersTest extends TestCase
     }
 
 
-    public function testPassingArraySetsParsersProperty()
+    //**************************************************************************
+    // PASSING ARRAY
+    //**************************************************************************
+
+    public function testPassingArrayOfParsersSetsParsersProperty()
     {
         $regulator = $this->getRegulator();
 
@@ -48,7 +56,7 @@ class ParsersTest extends TestCase
     }
 
 
-    public function testPassingArrayOverwritesParsersProperty()
+    public function testPassingArrayOfParsersOverwritesParsersProperty()
     {
         $regulator = $this->getRegulator();
 
@@ -70,7 +78,7 @@ class ParsersTest extends TestCase
     }
 
 
-    public function testPassingArrayReturnsSelf()
+    public function testPassingArrayOfParsersReturnsSelf()
     {
         $regulator = $this->getRegulator();
 
@@ -81,6 +89,10 @@ class ParsersTest extends TestCase
         $this->assertSame($regulator, $regulator->parsers($parsers));
     }
 
+
+    //**************************************************************************
+    // PASSING PARSER(S)
+    //**************************************************************************
 
     public function testPassingParserSetsParsersProperty()
     {
