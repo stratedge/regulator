@@ -37,6 +37,9 @@ abstract class Regulator
     protected $status = 200;
 
 
+    /**
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -44,15 +47,32 @@ abstract class Regulator
     }
 
 
+    /**
+     * Core method that completes the regulation of the output. Returns a
+     * Regulation object after processing
+     *
+     * @return Regulation
+     */
     abstract public function regulate();
 
 
-    public function registerParsers()
-    {
-        //No-op
-    }
+    /**
+     * Core method that sets the list of Parsers on the $parser property that
+     * the Regulator will use to regulate the output
+     *
+     * @return null
+     */
+    abstract public function registerParsers();
 
 
+    /**
+     * Convenience wrapper for both getRequest and setRequest. Without input
+     * willreturn the $request property, otherwise will set the $request
+     * property and return self
+     *
+     * @param  Request|null $request
+     * @return Request|null|self
+     */
     public function request(Request $request = null)
     {
         if (is_null($request)) {
@@ -63,12 +83,23 @@ abstract class Regulator
     }
 
 
+    /**
+     * Returns the value of the $request property
+     *
+     * @return Request|null
+     */
     public function getRequest()
     {
         return $this->request;
     }
 
 
+    /**
+     * Sets the value of the $request property. Returns self
+     *
+     * @param  Request $request
+     * @return self
+     */
     public function setRequest(Request $request)
     {
         $this->request = $request;
@@ -76,6 +107,15 @@ abstract class Regulator
     }
 
 
+    /**
+     * Convenience wrapper for both getParsers and setParsers. Without input
+     * will return the $parsers property, otherwise will set the $parsers
+     * property and return self. Input can be a single Parser, a listing of
+     * Parsers, or a single array of Parsers
+     *
+     * @param  Parser|array|null $parser
+     * @return array|self
+     */
     public function parsers($parser = null)
     {
         if (is_null($parser)) {
