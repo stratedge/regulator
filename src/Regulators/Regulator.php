@@ -128,7 +128,15 @@ abstract class Regulator
     }
 
 
-    public function addParser($parser)
+    /**
+     * Takes a Parser(s)/class name(s) of a Parser, or an array of Parsers/class
+     * names of Parsers and appends the Parser(s) to the $parsers property
+     *
+     * @throws InvalidArgumentException
+     * @param  Parser|array|string $parser
+     * @return self
+     */
+    public function addParsers($parser)
     {
         if (!is_array($parser)) {
             $parser = func_get_args();
