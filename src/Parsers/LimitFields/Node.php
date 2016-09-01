@@ -72,7 +72,7 @@ class Node extends Parser
 
         //Loop through any given relationships and set their visible properties
         foreach ($relations as $relation => $fields) {
-            if ($obj->relationLoaded($relation)) {
+            if ($obj->relationLoaded($relation) && $obj->{$relation}) {
                 if ($obj->{$relation} instanceof Collection) {
                     //Relationship is a collection - update each child
                     foreach ($obj->{$relation} as &$child) {
