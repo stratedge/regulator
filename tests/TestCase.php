@@ -9,6 +9,7 @@ class TestCase extends BaseTestCase
 {
     public function setUp()
     {
+        parent::setUp();
         Wye::reset();
     }
 }
