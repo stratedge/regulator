@@ -19,6 +19,13 @@
     "require-dev": {
         "phpunit/phpunit": "^4.0",
         "raveren/kint": "^1.0",
-        "orchestra/testbench": "~3.2"
+        "orchestra/testbench": "~3.2",
+        "stratedge/wye": "dev-master"
+    },
+    "repositories": {
+        "wye": {
+            "type": "vcs",
+            "url": "https://github.com/stratedge/wye.git"
+        }
     }
 }
